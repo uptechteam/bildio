@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'kotlin-kapt'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.squareup:javapoet:1.13.0'
+
+    kapt "com.google.auto.service:auto-service:1.0-rc4"
+    compileOnly "com.google.auto.service:auto-service:1.0-rc4"
+
+    compileOnly "com.google.dagger:dagger:2.30.1"
+}

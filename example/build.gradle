@@ -1,0 +1,69 @@
+buildscript {
+    ext.versions = [
+            nav_version              : "2.2.2",
+            lifecycle_ktx            : "2.2.0-rc03",
+            room                     : [
+                    main    : "2.2.5",
+                    compiler: "2.2.4"
+            ],
+            lifecycle_version_testing: "2.0.0-alpha1",
+            dagger                   : "2.30.1",
+            retrofit                 : "2.8.1",
+    ]
+}
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId 'team.uptech.BildioProject'
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api project(":bildio")
+    kapt project(":dagger_vm_processor")
+    compileOnly project(":dagger_vm_processor")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.nav_version}"
+
+    // Dependency Injection
+    implementation "com.google.dagger:dagger:${versions.dagger}"
+    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+}

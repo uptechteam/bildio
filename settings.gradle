@@ -1,0 +1,4 @@
+include ':dagger_vm_processor'
+include ':bildio'
+include ':example'
+rootProject.name = "NavInjector"
