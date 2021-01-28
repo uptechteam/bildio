@@ -21,12 +21,14 @@ class HostActivityInjector(
     private var currentFactory: ViewModelProvider.Factory? = null
     private var hostComponent: HostComponent? = null
     private var subgraphComponent: SubgraphComponent? = null
-    private var navigator : HostActivityNavigator? = null
+    private lateinit var navigator : HostActivityNavigator
 
     override fun onSubGraph(navGraph: NavGraph): DestinationLifecycleObserver? =
         when (navGraph.id) {
             R.id.nav_graph -> DestinationLifecycleObserver(navGraph.id, {
-                hostComponent = HostComponent(appComponent)
+                hostComponent = HostComponent(appComponent).also {
+                    it.hostCoordinator().setNavigator(navigator)
+                }
                 currentFactory = hostComponent?.viewModelFactory()
             }, {
                 if (configurationChange()) {
@@ -75,7 +77,7 @@ class HostActivityInjector(
 
     override fun inject(injectable: ControllerProvider) {
         super.inject(injectable)
-        navigator = HostActivityNavigator(injectable.navController)
+        navigator = HostActivityNavigator(injectable.navController, activity)
         injectable.navController.setGraph(R.navigation.nav_graph)
     }
 }

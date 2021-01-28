@@ -23,10 +23,11 @@
 
     <navigation
         android:id="@+id/subgraph"
-        app:startDestination="@id/secondFragment">
+        android:label="subgraph"
+        app:startDestination="@id/subgraphFragment">
 
         <fragment
-            android:id="@+id/secondFragment"
+            android:id="@+id/subgraphFragment"
             android:name="team.uptech.navinjector.other.SubgraphFragment"
             android:label="SubgraphFragment" />
 

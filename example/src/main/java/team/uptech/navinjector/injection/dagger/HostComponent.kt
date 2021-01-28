@@ -1,9 +1,13 @@
 package team.uptech.navinjector.injection.dagger
 
 import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
 import team.uptech.dagger_vm_processor.ViewModelModule
+import team.uptech.navinjector.CoordinatorImpl
+import team.uptech.navinjector.HostCoordinator
 import team.uptech.navinjector.first.FirstViewModel
 import team.uptech.navinjector.second.SecondViewModel
 import javax.inject.Qualifier
@@ -21,6 +25,8 @@ abstract class HostComponent {
 
     @Host
     abstract fun viewModelFactory(): ViewModelProvider.Factory
+
+    abstract fun hostCoordinator(): CoordinatorImpl
 
     @Subcomponent.Factory
     interface Factory {
@@ -53,7 +59,19 @@ abstract class HostComponent {
 @Module(
     includes = [Host_ViewModelModule::class]
 )
-class HostModule {
+abstract class HostModule {
+
+    @Binds
+    abstract fun bindCoordinator(coordinatorImpl: CoordinatorImpl) : HostCoordinator
+
+    companion object {
+        @Provides
+        @HostScope
+        fun provideCoordinator() = CoordinatorImpl()
+
+    }
+
+
 
 }
 
