@@ -6,7 +6,6 @@ import androidx.navigation.NavGraph
 import team.uptech.bildio.di.ControllerProvider
 import team.uptech.bildio.di.NavControllerInjector
 import team.uptech.bildio.di.RetainedState
-import team.uptech.bildio.navigation.Navigator
 import team.uptech.navinjector.injection.dagger.AppComponent
 import team.uptech.navinjector.injection.dagger.HostComponent
 import team.uptech.navinjector.injection.dagger.SubgraphComponent
@@ -21,7 +20,7 @@ class HostActivityInjector(
     private var currentFactory: ViewModelProvider.Factory? = null
     private var hostComponent: HostComponent? = null
     private var subgraphComponent: SubgraphComponent? = null
-    private lateinit var navigator : HostActivityNavigator
+    private lateinit var navigator: HostActivityNavigator
 
     override fun onSubGraph(navGraph: NavGraph): DestinationLifecycleObserver? =
         when (navGraph.id) {
@@ -78,6 +77,6 @@ class HostActivityInjector(
     override fun inject(injectable: ControllerProvider) {
         super.inject(injectable)
         navigator = HostActivityNavigator(injectable.navController, activity)
-        injectable.navController.setGraph(R.navigation.nav_graph)
+        injectable.navController.setGraph(R.navigation.nav_graph, null)
     }
 }
